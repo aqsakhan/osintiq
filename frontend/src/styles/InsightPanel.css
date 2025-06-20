@@ -1,0 +1,93 @@
+.insight-panel {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #111827;
+  color: #e5e7eb;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f2937;
+  min-height: 0; /* allows flex parent to control height */
+}
+
+.insight-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.insight-panel::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 4px;
+}
+.insight-panel::-webkit-scrollbar-track {
+  background-color: #1f2937;
+}
+
+.placeholder-text {
+  color: #9ca3af;
+  font-style: italic;
+  text-align: center;
+  padding-top: 80px;
+  font-size: 1rem;
+}
+
+.typewriter-markdown {
+  font-family: "Fira Code", monospace;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.typewriter-markdown h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 20px;
+  color: #60a5fa;
+  border-bottom: 1px solid #374151;
+  padding-bottom: 4px;
+}
+
+.typewriter-markdown h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 16px;
+  color: #93c5fd;
+}
+
+.typewriter-markdown p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.typewriter-markdown li {
+  margin-left: 20px;
+  list-style-type: disc;
+  font-size: 0.95rem;
+}
+
+.typewriter-markdown pre {
+  background-color: #1e293b;
+  padding: 14px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+.typewriter-markdown code {
+  font-family: "Fira Code", monospace;
+}
+
+.stop-button {
+  margin-top: 1rem;
+  padding: 6px 14px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  float: right;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.stop-button:hover {
+  background-color: #dc2626;
+}

@@ -21,28 +21,7 @@ def generate_insight():
 
         if not input_text:
             return jsonify({"error": "Missing input_text"}), 400
-
-        # === Step 1: LLM Alert Parsing ===
-#         parse_prompt = f"""
-# You're a cybersecurity alert parser.
-
-# Your job is to convert ANY messy alert or analyst input into structured JSON with fields like 'hash', 'ip', 'email', 'domain', 'URL', 'CVE', 'EventID', etc.
-
-# If the input is: "I found this IP 1.2.3.4 and hash abc123", return:
-# {{ "ip": "1.2.3.4", "hash": "abc123", "cve" : "cve-2025"}}
-
-# the input can be anything related to cyber security or incident response you need to find any info on that later,
-# so make sure you are generating all the info precisely.
-# you can also extract the info and put it under "description" : "..."
-
-# If nothing is relevant, return an empty object: {{}}
-
-# Input:
-# {input_text}
-
-# Output (JSON only):
-# """
-        
+            
         parse_prompt = f"""
 You are a cybersecurity parsing assistant trained for Security Operations Centers (SOC).
 
@@ -90,8 +69,7 @@ Output (JSON only):
 
         # Normalize keys to lowercase
         parsed = {k.lower(): v for k, v in parsed.items()}
-        print("=== Parsed Alert ===")
-        print(parsed)
+        print("🚀 Alert Parsed")
 
         # === Step 2: Dispatcher-style Enrichment ===
         enrichment_results = {}
@@ -107,20 +85,16 @@ Output (JSON only):
 
         # Try multiple casing variants for CVE key
         cve_id = parsed.get("CVE") or parsed.get("cve") or parsed.get("Cve")
-        print("⚠️ cve_id", cve_id);
         if cve_id:
             enrichment_results["cve_info"] = decode_cve(cve_id)
         else:
             print("⚠️ No CVE found in parsed input")
-        
-        print("=== Parsed Alert ===")
-        print(json.dumps(parsed, indent=2))
 
         enrichment_results["mitre"] = map_to_mitre(parsed.get("hash") or parsed.get("cve") or "")
         enrichment_results["actor_links"] = link_actors(input_text)
 
         print("=== Enriched Alert for LLM ===")
-        print(enrichment_results.get("cve_info", "⚠️ No CVE info enriched"))
+        print(enrichment_results)
 
         # === Step 3: SOC Summary via LLM ===
         summary_prompt = f"""
@@ -137,11 +111,13 @@ Your job is to:
 - Deduce possible MITRE ATT&CK techniques based on the information
 - Infer likely threat actors if available or linked to known campaigns
 - Provide a prioritized list of SOC actions under: Containment, Investigation, Remediation, and Communication
-- Output everything in a clean, readable format using Markdown-style formatting (e.g. headers, bullet points, emojis)
+- Output everything in a clean, readable format using **Markdown**. Use:
+  - `###` for section headers
+  - Bullet points (`-`) for lists
+  - Code blocks (```json) for JSON
+  - Emojis for visual cues (📍, ⚠️, 🔍, ✅, etc.)
 
-Inputs:
-
-🧾 Parsed Alert:
+### 🧾 Parsed Alert
 ```json
 {json.dumps(parsed, indent=2)}
 
@@ -153,12 +129,42 @@ Summarize what happened, identify MITRE techniques, linked actors, and give SOC 
         final_summary = call_llm(summary_prompt)
 
         return jsonify({
-            "topic": input_text[:50] + "...",
             "insight": final_summary
         })
 
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/ask-ai", methods=["POST"])
+def ask_ai():
+    try:
+        data = request.get_json()
+        question = data.get("question", "").strip()
+        previous_context = data.get("previous_context", "").strip()
+
+        if not question:
+            return jsonify({"error": "Missing question"}), 400
+
+        chat_prompt = f"""
+You are a friendly cybersecurity assistant helping SOC analysts with threat investigation.
+
+Prior Insight:
+{previous_context if previous_context else "N/A"}
+
+User Question:
+{question}
+
+Respond like you're chatting. Use natural language, markdown formatting, and complete sentences. DO NOT return JSON or any structured object — only plain text with markdown if needed. Keep the tone helpful and concise.
+"""
+
+        ai_response = call_llm(chat_prompt)
+
+        return jsonify({"insight": ai_response.strip()})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 def start_server():
     app.run(debug=True)

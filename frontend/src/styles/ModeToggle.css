@@ -1,0 +1,29 @@
+/* src/components/ModeToggle.css */
+.mode-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+}
+
+.mode-toggle button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #1e1e1e;
+  color: #ddd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.mode-toggle button.active {
+  background-color: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+.mode-toggle button:hover {
+  background-color: #2c66d1;
+  color: white;
+}

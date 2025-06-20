@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600;800&display=swap");
+
+:root {
+  --bg: #0b0f1a;
+  --panel: #111827;
+  --input: #1e293b;
+  --accent: #3b82f6;
+  --highlight: #22d3ee;
+  --text-light: #e2e8f0;
+  --text-dim: #94a3b8;
+  --card-border: #334155;
+  --glow: #60a5fa;
+}
+
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+
+/* 🔲 Overall Layout */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* 📚 Sidebar */
+.sidebar {
+  background-color: var(--panel);
+  color: var(--text-light);
+  padding: 20px;
+  width: 260px;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🧠 Main Right Panel */
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  padding: 10px 20px;
+  overflow: hidden; /* Prevent parent scrolling */
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.app-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #3b82f6, #22d3ee);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-subtitle {
+  margin-top: 0;
+  margin-bottom: 20px;
+  width: 50%;
+  text-align: center;
+  padding-right: 8px;
+  font-size: 0.8rem;
+  color: #a0a0a0;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🧭 Header Section */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+
+.toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  /* margin-top: -4px; */
+  /* margin-bottom: 0; */
+}
+
+/* 💬 Input Console (Shared) */
+.input-console {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  background-color: var(--input);
+  border-top: 1px solid var(--card-border);
+  margin-top: auto;
+}
+
+/* Fix each mode panel (inside content-panel) */
+.mode-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* 📄 Content Panel */
+.content-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--panel);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  min-height: 0; /* Crucial for inner scroll */
+}
+
+.console-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-family: "Fira Code", monospace;
+  font-size: 1rem;
+  color: var(--text-light);
+  outline: none;
+}
+
+.console-input:focus {
+  border-color: var(--highlight);
+  box-shadow: 0 0 8px var(--highlight);
+}
+
+.send-button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background: linear-gradient(145deg, var(--accent), var(--highlight));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 0 8px var(--glow);
+  transition: 0.2s ease;
+}
+
+.send-button:hover {
+  transform: scale(1.05);
+}
+
+/* 🧠 Insight View + Chat bubbles will follow individual component styles */
