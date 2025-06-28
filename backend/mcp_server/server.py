@@ -3,13 +3,13 @@ from flask import Flask, request, jsonify
 import os
 from flask_cors import CORS
 import json
-from mcp_server.modules.hash_analyzer import analyze_hash
-from mcp_server.modules.ip_enricher import enrich_ip
-from mcp_server.modules.email_analyzer import analyze_email
-from mcp_server.modules.cve_decoder import decode_cve
-from mcp_server.modules.mitre_map_actor_linker import map_to_mitre, link_actors
-from mcp_server.modules.response_suggester import generate_response_recommendations
-from mcp_server.groq_llama3 import call_llm
+from modules.hash_analyzer import analyze_hash
+from modules.ip_enricher import enrich_ip
+from modules.email_analyzer import analyze_email
+from modules.cve_decoder import decode_cve
+from modules.mitre_map_actor_linker import map_to_mitre, link_actors
+from modules.response_suggester import generate_response_recommendations
+from groq_llama3 import call_llm
 
 app = Flask(__name__)
 CORS(app)

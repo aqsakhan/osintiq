@@ -2,7 +2,7 @@ import os
 import logging
 from openai import OpenAI
 from dotenv import load_dotenv
-from mcp_server.core.prompt_builder import build_prompt
+from core.prompt_builder import build_prompt
 
 # Load environment variables
 load_dotenv()

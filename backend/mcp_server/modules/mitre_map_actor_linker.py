@@ -1,6 +1,6 @@
 import re
 from stix2 import Filter
-from mcp_server.modules.mitre_utils import get_data_from_branch
+from modules.mitre_utils import get_data_from_branch
 
 # Load MITRE ATT&CK STIX data into memory store
 memory_store = get_data_from_branch()
