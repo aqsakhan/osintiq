@@ -28,7 +28,7 @@ function InputConsole() {
         setLoadingInsight(true);
 
         const response = await axios.post(
-          "http://localhost:5000/generate-insight",
+          "https://osintiq.onrender.com/generate-insight",
           {
             input_text: input,
           }
@@ -39,10 +39,13 @@ function InputConsole() {
       } else if (mode === "chat") {
         addChatMessage("user", input);
 
-        const response = await axios.post("http://localhost:5000/ask-ai", {
-          question: input,
-          previous_context: lastInsight || "No context available",
-        });
+        const response = await axios.post(
+          "https://osintiq.onrender.com/ask-ai",
+          {
+            question: input,
+            previous_context: lastInsight || "No context available",
+          }
+        );
 
         addChatMessage("ai", response.data.insight);
       }
