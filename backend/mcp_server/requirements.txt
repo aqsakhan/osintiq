@@ -2,4 +2,5 @@ flask
 requests
 flask_cors
 openai
-dotenv
+python-dotenv
+stix2
