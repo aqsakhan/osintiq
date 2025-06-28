@@ -1,5 +1,6 @@
 # mcp_server/server.py
 from flask import Flask, request, jsonify
+import os
 from flask_cors import CORS
 import json
 from mcp_server.modules.hash_analyzer import analyze_hash
@@ -184,4 +185,9 @@ Respond like you're chatting. Use natural language, markdown formatting, and com
 
 
 def start_server():
-    app.run(debug=True)
+    app.run(debug=False)
+
+if __name__ == "__main__":
+    from dotenv import load_dotenv
+    load_dotenv()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
