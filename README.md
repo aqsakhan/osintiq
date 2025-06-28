@@ -15,37 +15,47 @@ It leverages OSINT data, MITRE ATT&CK mappings, and AI-generated SOC action step
   - Email Reputation (via EmailRep.io)
 - 🎯 **MITRE ATT&CK Mapping** (via MITRE STIX data)
 - 🎭 **Threat Actor Linking** (APT groups via STIX `intrusion-set`)
+- 🧱 **CTI Framework Reasoning** (MITRE, Cyber Kill Chain, Diamond Model)
 - 📋 **AI-Generated SOC Recommendations**
-- 🖥️ **Interactive Frontend with Typewriter Output**
+- 💬 **AI Chat Mode**:
+  - Ask follow-up questions to AI using enriched alert context
+  - Maintains chat history and supports Markdown responses
+- 🖥️ **Interactive Frontend**:
+  - Dual-mode toggle: Analysis Mode vs. Chat Mode
+  - Typewriter animation, dark theme, and scrollable panels
 
 ---
 
 ## 🗂️ Folder Structure
 
 ```
-mcp_server/
+
+backend/
+├── mcp_server/
 ├── core/
-│   └── prompt_builder.py         # Builds prompts for LLM responses
+│ └── prompt_builder.py # Builds prompts for LLM responses
 ├── modules/
-│   ├── cve_decoder.py            # CVE decoding using NVD
-│   ├── email_analyzer.py         # Email reputation via EmailRep.io
-│   ├── hash_analyzer.py          # File hash analysis via VirusTotal
-│   ├── ip_enricher.py            # IP reputation via VirusTotal
-│   ├── mitre_map_actor_linker.py# Maps techniques & actors from STIX
-│   ├── mitre_utils.py           # Loads MITRE STIX data from GitHub
-│   └── response_suggester.py     # Generates AI response recommendations
-├── groq_llama3.py                # LLaMA 3 integration via Groq API
-├── server.py                     # Flask backend server
-└── test.py                       # Optional testing scripts
+│ ├── cve_decoder.py # CVE decoding using NVD
+│ ├── email_analyzer.py # Email reputation via EmailRep.io
+│ ├── hash_analyzer.py # File hash analysis via VirusTotal
+│ ├── ip_enricher.py # IP reputation via VirusTotal
+│ ├── mitre_map_actor_linker.py # Maps techniques & actors from STIX
+│ ├── mitre_utils.py # Loads MITRE STIX data from GitHub
+│ └── response_suggester.py # Generates AI response recommendations
+├── groq_llama3.py # LLaMA 3 integration via Groq API
+├── server.py # Flask backend server
+└── test.py # Optional testing scripts
 
 frontend/
 ├── src/
-│   ├── App.jsx                   # Main React component
-│   ├── main.jsx                  # React app entry point
-│   └── styles.css                # Custom CSS (dark theme, console UI)
+│ ├── App.jsx # Main React component
+│ ├── components/ # InsightPanel, AIChatPanel, InputConsole
+│ ├── context/ # AppContext and Provider
+│ ├── styles/ # Component-specific CSS
+│ └── main.jsx # React app entry point
 ├── public/
-│   └── index.html                # HTML shell for React app
-└── vite.config.js                # Vite configuration
+│ └── index.html # HTML shell for React app
+└── vite.config.js # Vite configuration
 
 .env                              # Contains API keys for Groq, VT, EmailRep
 README.md
